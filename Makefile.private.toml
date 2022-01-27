@@ -1,0 +1,13 @@
+[tasks.serve-backend]
+workspace = false
+private = true
+dependencies = [
+    { name = "serve", path = "backend/Makefile.toml" }
+]
+
+[tasks.serve-frontend]
+workspace = false
+private = true
+dependencies = [
+    { name = "serve", path = "frontend/Makefile.toml" }
+]

@@ -1,0 +1,27 @@
+[tasks.serve]
+run_task = { name = ["run-server", "build-tailwind"], fork = true, parallel = true }
+
+[tasks.clean]
+dependencies = ["clean-dist"]
+
+[tasks.clean-dist]
+command = "rm"
+args = ["-rf", "dist", "style.css"]
+
+[tasks.run-server]
+install_crate = { crate_name = "trunk", binary = "trunk", test_arg = "--help" }
+private = true
+command = "trunk"
+args = ["serve", "--proxy-backend=http://127.0.0.1:8000/api", "--open"]
+
+[tasks.build-tailwind]
+private = true
+dependencies = ["install-tailwind"]
+command = "cargo"
+args = ["watch", "-s", "tailwindcss -c ./tailwind.config.js -i ./base.css -o ./style.css --minify"]
+
+[tasks.install-tailwind]
+private = true
+condition_script = ["! hash tailwindcss"]
+command = "npm"
+args = ["install", "-g", "tailwindcss"]

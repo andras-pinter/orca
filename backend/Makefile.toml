@@ -1,0 +1,3 @@
+[tasks.serve]
+command = "cargo"
+args = ["watch", "-x", "run"]
